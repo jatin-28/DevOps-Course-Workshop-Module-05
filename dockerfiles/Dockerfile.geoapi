@@ -1,0 +1,12 @@
+FROM python:3.7
+RUN mkdir /app 
+COPY geoapi/app.py /app
+COPY geoapi/pyproject.toml /app 
+WORKDIR /app
+ENV PYTHONPATH=${PYTHONPATH}:${PWD} 
+RUN pip3 install poetry
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-dev
+
+
+CMD ["poetry", "run", "flask", "run", "-h", "0.0.0.0"]
