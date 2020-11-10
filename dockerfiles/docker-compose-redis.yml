@@ -1,0 +1,22 @@
+version: "3"
+
+volumes:
+  chimera_data:
+    driver: local
+
+services:
+  redis:
+    image: redis
+  webapp:
+    image: jat7805/chimera-webapp:1.0
+    ports:
+      - "8081:80"
+    volumes:
+      - chimera_data:/opt/chimera/data
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
+  cliapp:
+    image: jat7805/chimera-cliapp:1.0
+    volumes:
+      - chimera_data:/opt/chimera/data
