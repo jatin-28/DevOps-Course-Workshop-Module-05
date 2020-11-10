@@ -1,6 +1,15 @@
 version: "3"
 
 services:
+  geoapi:
+    build:
+     context: .
+     dockerfile: Dockerfile.geoapi
+    ports:
+     - 5001:5000
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
   nginx:
     build:
      context: .
